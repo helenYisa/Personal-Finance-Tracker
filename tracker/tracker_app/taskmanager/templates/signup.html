@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title%}
+Sign Up
+{% endblock %}
+{% block nav_home %}
+<a class="nav-link active" aria-current="page" href="{% url 'home'%}">Home</a>
+{% endblock%}
+{% block content %}
+    <div class="mt-5 container">
+        <h6>Sign Up</h6>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+{% endblock %}

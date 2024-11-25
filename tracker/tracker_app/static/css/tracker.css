@@ -1,0 +1,36 @@
+.features-section .col-md-4 {
+    margin-bottom: 30px;
+}
+
+
+  .custom-select-field {
+    width: 250px; /* Adjust width as needed */
+    max-width: 100%; /* Ensures responsiveness */
+    padding: 5px; /* Optional: Adjust padding */
+    border-radius: 4px; /* Optional: Add rounded corners */
+}
+
+#sm-devices .form-control,
+#sm-devices .form-select {
+    max-width: 400px !important; /* Set a reasonable maximum width */
+    width: 100%; /* Ensure it adjusts within the parent */
+    margin: 0 auto; /* Center align for aesthetics */
+    box-sizing: border-box; /* Ensure padding doesn't exceed width */
+}
+
+@media (max-width: 768px) {
+  
+  h1 {
+      font-size: 1.5rem;
+  }
+
+  #sm-devices .form-control,
+  #sm-devices .form-select {
+      max-width: 90%; /* Adjust for smaller devices */
+  }
+  
+  #sm-devices .form-control {
+    resize: vertical; /* Allow resizing for textarea */
+  }
+  
+}

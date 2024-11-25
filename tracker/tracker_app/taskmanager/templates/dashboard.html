@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block nav_content %}
+<a class="nav-link" href="{% url 'dashboard'%}">Dashboard</a>
+<a class="nav-link" href="{% url 'logout' %}">Logout</a>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Header Section -->
+    <div class="row align-items-center mb-4">
+        <!-- Left Column: Title -->
+        <div class="col-12 col-md-6 mb-2 mb-md-0">
+            <h2 class="fw-bold">Dashboard for {{ user.username }}</h2>
+        </div>
+        <!-- Right Column: Buttons -->
+        <div class="col-12 col-md-6 text-md-end">
+            <a href="{% url 'income' %}" class="btn btn-secondary me-2 mb-2 mb-md-0">Add Income</a>
+            <a href="{% url 'expenses' %}" class="btn btn-secondary">Add Expense</a>
+        </div>
+    </div>
+
+    <!-- Filter Form -->
+    <form method="GET" action="{% url 'dashboard' %}" class="row g-3 align-items-center" id="filter-form">
+        <div class="col-auto">
+            <label for="year-select" class="form-label">Year:</label>
+            <select name="year" id="year-select" class="form-select" onchange="this.form.submit()">
+                <option value="" {% if filter_year == '' %}selected{% endif %}>Select Year</option>
+                {% for y in years %}
+                    <option value="{{ y }}" {% if y == filter_year|default_if_none:'' %}selected{% endif %}>{{ y }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-auto">
+            <label for="month-select" class="form-label">Month:</label>
+            <select name="month" id="month-select" class="form-select" onchange="this.form.submit()">
+                <option value="" {% if filter_month == '' %}selected{% endif %}>Select Month</option>
+                {% for m in months %}
+                    <option value="{{ forloop.counter }}" {% if forloop.counter == filter_month|default_if_none:'' %}selected{% endif %}>{{ m }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+
+    <!-- Totals Section -->
+    <div class="row mt-4">
+        <div class="col-12 col-md-4">
+            <div class="bg-light p-3 border rounded shadow-sm">
+                <p class="fw-bold text-success">Total Income: ${{ total_income }}</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="bg-light p-3 border rounded shadow-sm">
+                <p class="fw-bold text-danger">Total Expenses: ${{ total_expenses }}</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="bg-light p-3 border rounded shadow-sm">
+                <p class="fw-bold text-primary">Total Balance: ${{ total_balance }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="row g-4 mt-4">
+        <div class="col-12 col-lg-6">
+            <div class="card border-0 shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-teal">Expenses by Category</h5>
+                    <div id="expenses-pie-chart">
+                        <img src="data:image/png;base64,{{ pie_chart_data }}" class="img-fluid" alt="Expense Distribution">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="card border-0 shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-teal">Monthly Income vs Expenses</h5>
+                    <div id="income-expenses-bar-chart">
+                        <img src="data:image/png;base64,{{ bar_chart_data }}" class="img-fluid" alt="Income vs Expenses">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

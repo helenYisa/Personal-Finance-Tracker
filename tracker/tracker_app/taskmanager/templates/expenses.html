@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}
+Expenses
+{% endblock %}
+
+{% block nav_content %}
+<a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+<a class="nav-link" href="{% url 'logout' %}">Logout</a>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5"> 
+    <h1 class="text-center mb-4">Expenses</h1>
+
+    <!-- Information Section -->
+    <div class="row gy-4 align-items-center">
+        <!-- Left Column: Information -->
+        <div class="col-12 col-lg-6">
+            <p><i>If you don't find a category that fits your expenses, add one!</i></p>
+        </div>
+        
+        <!-- Right Column: Details and Button -->
+        <div class="col-12 col-lg-6 text-lg-end">
+            <details class="mb-3 mb-lg-0">
+                <summary>Information on Adding a New Category</summary>
+                <p>
+                    You can easily create your own category! Navigate to the "Add Category" page by clicking the "Add Category" button. 
+                    Provide a name and description for your new category, and click "Add Category." Once added, your custom category 
+                    will appear in the dropdown list for future use.
+                </p>
+            </details>
+            <a class="btn btn-primary btn-sm" href="{% url 'add_category' %}">Add Category</a>
+        </div>
+    </div>
+
+    <!-- Form Section -->
+    <form method="POST" class="mt-5">
+        {% csrf_token %}
+        <div class="row g-3">
+            <!-- Category Field -->
+            <div class="col-12">
+                <label for="id_category" class="form-label">Category</label>
+                {{ expense_form.category }}
+            </div>
+            
+            <!-- Amount Field -->
+            <div class="col-12 col-md-6">
+                <label for="id_amount" class="form-label">Amount</label>
+                {{ expense_form.amount }}
+            </div>
+            
+            <!-- Description Field -->
+            <div class="col-12 col-md-6">
+                <label for="id_description" class="form-label">Description</label>
+                {{ expense_form.description }}
+            </div>
+            
+            <!-- Date Field -->
+            <div class="col-12 col-md-6">
+                <label for="id_date" class="form-label">Date</label>
+                {{ expense_form.date }}
+            </div>
+        </div>
+        
+        <!-- Submit Button -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success btn-lg">Add Expense</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}
+Add Category
+{% endblock %}
+
+{% block nav_content %}
+<a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+<a class="nav-link" href="{% url 'logout' %}">Logout</a>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">Add Category</h1>
+
+    <!-- Form Section -->
+    <form method="POST" class="row g-4">
+        {% csrf_token %}
+
+        <!-- Category Name -->
+        <div class="col-12">
+            <label for="name" class="form-label">Category Name:</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+        </div>
+
+        <!-- Description -->
+        <div class="col-12">
+            <label for="description" class="form-label">Description:</label>
+            <textarea id="description" name="description" class="form-control" rows="4"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary btn-lg">Add Category</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

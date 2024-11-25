@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}
+Income
+{% endblock %}
+
+{% block nav_content %}
+<a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+<a class="nav-link" href="{% url 'logout' %}">Logout</a>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-5">Income</h1>
+    
+    <div class="row">
+        <div class="col">
+            <p><i>Manage your earnings by adding them to the tracker!</i></p>
+        </div>
+        <div class="col">
+            <details>
+                <summary>How to add income</summary>
+                <p>Provide an amount, a description, and select a date to record your income.</p>
+            </details>
+        </div>
+    </div>
+
+    <form method="POST" class="mt-4">
+        {% csrf_token %}
+        
+        <div class="row g-3">
+            <!-- Amount Field -->
+            <div class="col-12 col-md-6">
+                <label for="id_amount" class="form-label">Amount</label>
+                {{ income_form.amount }}
+            </div>
+
+            <!-- Description Field -->
+            <div class="col-12 col-md-6">
+                <label for="id_description" class="form-label">Description</label>
+                {{ income_form.description }}
+            </div>
+
+            <!-- Date Field -->
+            <div class="col-12 col-md-6">
+                <label for="id_date" class="form-label">Date</label>
+                {{ income_form.date }}
+            </div>
+        </div>
+        
+        <!-- Submit Button -->
+        <div class="mt-4 text-center">
+            <button type="submit" class="btn btn-success btn-lg">Add Income</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

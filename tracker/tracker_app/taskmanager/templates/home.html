@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}
+    Home | Finance Tracker
+{% endblock %}
+{% block nav_home %}
+<li class="nav-item">
+  <a class="nav-link active" href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
+</li>
+{% endblock %}
+{% block content %}
+<section class="text-center">
+  <div class="container">
+    <h1 class="display-4 fw-bold text-primary">Welcome to Personal Finance Tracker</h1>
+    <p class="lead text-secondary">Your all-in-one solution to manage your income and expenses seamlessly.</p>
+    <div class="mt-4">
+      <a href="{% url 'signup' %}" class="btn btn-lg btn-primary me-3 shadow"><i class="fas fa-user-plus"></i> Sign Up</a>
+      <a href="{% url 'login' %}" class="btn btn-lg btn-outline-secondary shadow"><i class="fas fa-sign-in-alt"></i> Log In</a>
+    </div>
+  </div>
+</section>
+<section class="features-section mt-5">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-6">
+        <i class="fas fa-chart-line fa-3x text-success mb-3"></i>
+        <h3 class="fw-bold">Track Your Finances</h3>
+        <p>Get insights into your spending habits and financial goals.</p>
+      </div>
+      <div class="col-md-6">
+        <i class="fas fa-wallet fa-3x text-warning mb-3"></i>
+        <h3 class="fw-bold">Easy Management</h3>
+        <p>Effortlessly manage income and expenses in one place.</p>
+      </div>
+      <!-- <div class="col-md-4">
+        <i class="fas fa-lock fa-3x text-danger mb-3"></i>
+        <h3 class="fw-bold">Secure</h3>
+        <p>Your data is protected with state-of-the-art encryption.</p>
+      </div> -->
+    </div>
+  </div>
+</section>
+{% endblock %}
