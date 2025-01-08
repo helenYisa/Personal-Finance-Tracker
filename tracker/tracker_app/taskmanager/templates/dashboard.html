@@ -62,26 +62,87 @@
 
     <!-- Charts Section -->
     <div class="row g-4 mt-4">
+        <!-- Pie Chart -->
         <div class="col-12 col-lg-6">
             <div class="card border-0 shadow">
                 <div class="card-body">
                     <h5 class="card-title text-teal">Expenses by Category</h5>
-                    <div id="expenses-pie-chart">
-                        <img src="data:image/png;base64,{{ pie_chart_data }}" class="img-fluid" alt="Expense Distribution">
-                    </div>
+                    <canvas id="expensesPieChart"></canvas>
                 </div>
             </div>
         </div>
+
+        <!-- Bar Chart -->
         <div class="col-12 col-lg-6">
             <div class="card border-0 shadow">
                 <div class="card-body">
                     <h5 class="card-title text-teal">Monthly Income vs Expenses</h5>
-                    <div id="income-expenses-bar-chart">
-                        <img src="data:image/png;base64,{{ bar_chart_data }}" class="img-fluid" alt="Income vs Expenses">
-                    </div>
+                    <canvas id="incomeExpensesBarChart"></canvas>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Parse data for charts
+    const pieChartData = JSON.parse('{{ pie_chart_data|escapejs }}');
+    const barChartData = JSON.parse('{{ bar_chart_data|escapejs }}');
+
+    // Render Pie Chart
+    new Chart(document.getElementById('expensesPieChart'), {
+        type: 'pie',
+        data: pieChartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,  // Retain aspect ratio
+            aspectRatio: 1,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return tooltipItem.label + ': $' + tooltipItem.raw;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Render Bar Chart
+    new Chart(document.getElementById('incomeExpensesBarChart'), {
+        type: 'bar',
+        data: barChartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,  // Retain aspect ratio
+            aspectRatio: 1,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Amount ($)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Months'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            }
+        }
+    });
+</script>
 {% endblock %}
